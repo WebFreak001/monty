@@ -29,6 +29,7 @@ fi
 
 if [[ ! -f $o || $i -nt $o ]]; then
     PYTHON_INCLUDE_PATH=$(python3 "$PACKAGE_DIR"/include.py)
+    "$DC" -run record_libs_path.d "$PYTHON_INCLUDE_PATH"
     echo "Translating Python headers in $PYTHON_INCLUDE_PATH"
     CC="$clinker" dub run dpp@0.5.4 --build=release -- --ignore-cursor=stat64 --ignore-cursor=PyType_HasFeature --ignore-cursor=_Py_IS_TYPE  --ignore-cursor=_PyObject_TypeCheck --function-macros --preprocess-only --include-path "$PYTHON_INCLUDE_PATH" "$i"
 fi

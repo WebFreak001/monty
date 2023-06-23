@@ -6,15 +6,14 @@ license "boost"
 targetType "library"
 targetPath "bin"
 
-dependency ":_helper" version="*"
-
-subPackage "_helper"
-
 preGenerateCommands "$PACKAGE_DIR/translate.sh" platform="posix"
 preGenerateCommands "$PACKAGE_DIR/translate.bat" platform="windows"
 
+// BEGIN DYNAMIC
+// translate.sh/translate.bat will insert lflags & libs here...
+// END DYNAMIC
+
 configuration "library" {
-    libs "python3"
 }
 
 configuration "unittest" {
@@ -24,10 +23,6 @@ configuration "unittest" {
     mainSourceFile "tests/main.d"
     sourcePaths "tests"
     importPaths "tests"
-
-    // link to python as a library
-    libs "$PYTHON_LIB"
-    lflags "-L$PYTHON_LIB_DIR"
 
     dflags "-preview=dip1000" "-preview=dip1008" "-allinst"
     versions "unitUnthreaded"  # GIL

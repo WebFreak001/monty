@@ -1,3 +1,0 @@
-name "_helper"
-description "this package gets replaced by translate.bat to inject /LIBPATH lflags or other things"
-targetType "sourceLibrary"
